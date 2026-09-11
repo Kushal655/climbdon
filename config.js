@@ -1,25 +1,17 @@
-/* ==================================================================
-   PUBLIC SITE SETTINGS
-   Paste the SAME Firebase settings here and in the admin's admin-config.js.
-   To change the page text (headline, story) in each language,
-   edit translations.js.
-   ================================================================== */
-
 window.SITE = {
   firebase: {
-    apiKey: "PASTE_YOUR_API_KEY",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "000000000000",
-    appId: "PASTE_YOUR_APP_ID"
+    apiKey: "AIzaSyA4lP1Ug5uQAjRzKfeigF4497C60noyLX8",
+    authDomain: "airtaxi-ffcb2.firebaseapp.com",
+    projectId: "airtaxi-ffcb2",
+    storageBucket: "airtaxi-ffcb2.firebasestorage.app",
+    messagingSenderId: "755016450444",
+    appId: "1:755016450444:web:994234f6e7e1985b5e16a9"
   },
 
-  yourName: "Your Name",
-  contactEmail: "you@example.com",
+  yourName: " Someone Who loves Climbing",
+  contactEmail: "backoffice.airtaxinepal@gmail.com",
 
-  // Language shown first. Visitors can switch with the menu at the top.
-  // Options: en, ne, hi, zh, ja, ko, es, fr, de, it
+  
   defaultLanguage: "en",
 
   currency: "Rs.",
