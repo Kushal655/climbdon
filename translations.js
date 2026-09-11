@@ -41,6 +41,7 @@ window.I18N = {};
 /* ---------------- English ---------------- */
 window.I18N.en = {
   ui: {
+    navPhotos: `Photos`, galleryTitle: `From the mountains`, galleryIntro: `Photos from the trail, training climbs, and expeditions.`, close: `Close`, prev: `Previous photo`, next: `Next photo`,
     navPeaks: `The peaks`, navCost: `Costs`, navSupporters: `Supporters`, navDonate: `Donate`, language: `Language`,
     headline: `I want to climb all 14 mountains above 8,000 metres.`,
     intro: `I'm {name}. My dream is to travel the world and stand on the summit of every mountain taller than 8,000 metres. It's a long and expensive road: permits, flights, gear, oxygen, and the teams who keep climbers safe. If you'd like to be part of the journey, any amount helps. If not, I'm glad you stopped by.`,
@@ -131,6 +132,7 @@ window.I18N.en = {
 /* ---------------- नेपाली (Nepali) ---------------- */
 window.I18N.ne = {
   ui: {
+    navPhotos: `तस्बिरहरू`, galleryTitle: `पहाडबाट`, galleryIntro: `पदमार्ग, तालिम आरोहण र अभियानका तस्बिरहरू।`, close: `बन्द गर्नुहोस्`, prev: `अघिल्लो तस्बिर`, next: `अर्को तस्बिर`,
     navPeaks: `शिखरहरू`, navCost: `खर्च`, navSupporters: `सहयोगीहरू`, navDonate: `सहयोग गर्नुहोस्`, language: `भाषा`,
     headline: `8,000 मिटरभन्दा अग्ला सबै 14 पर्वत चढ्ने मेरो सपना छ।`,
     intro: `म {name} हुँ। विश्व घुम्दै 8,000 मिटरभन्दा अग्ला हरेक पर्वतको शिखरमा पुग्ने मेरो सपना छ। यो बाटो लामो र महँगो छ: आरोहण अनुमति, हवाई यात्रा, सामग्री, अक्सिजन, र आरोहीलाई सुरक्षित राख्ने टोली। यो यात्रामा साथ दिन चाहनुहुन्छ भने जुनसुकै रकमले पनि सहयोग पुग्छ। नचाहनुभए पनि, यहाँ आइदिनुभएकोमा धन्यवाद।`,
@@ -221,6 +223,7 @@ window.I18N.ne = {
 /* ---------------- हिन्दी (Hindi) ---------------- */
 window.I18N.hi = {
   ui: {
+    navPhotos: `तस्वीरें`, galleryTitle: `पहाड़ों से`, galleryIntro: `रास्ते, प्रशिक्षण चढ़ाई और अभियानों की तस्वीरें।`, close: `बंद करें`, prev: `पिछली तस्वीर`, next: `अगली तस्वीर`,
     navPeaks: `चोटियाँ`, navCost: `खर्च`, navSupporters: `समर्थक`, navDonate: `दान करें`, language: `भाषा`,
     headline: `मेरा सपना है 8,000 मीटर से ऊँचे सभी 14 पर्वतों पर चढ़ना।`,
     intro: `मैं {name} हूँ। मेरा सपना है दुनिया घूमना और 8,000 मीटर से ऊँचे हर पर्वत के शिखर तक पहुँचना। यह रास्ता लंबा और महँगा है: परमिट, उड़ानें, उपकरण, ऑक्सीजन, और वे टीमें जो पर्वतारोहियों को सुरक्षित रखती हैं। अगर आप इस सफ़र का हिस्सा बनना चाहें, तो कोई भी राशि मदद करती है। अगर नहीं, तो भी यहाँ आने के लिए धन्यवाद।`,
@@ -311,6 +314,7 @@ window.I18N.hi = {
 /* ---------------- 中文 (Chinese, Simplified) ---------------- */
 window.I18N.zh = {
   ui: {
+    navPhotos: `照片`, galleryTitle: `来自群山`, galleryIntro: `徒步路上、训练攀登和远征途中的照片。`, close: `关闭`, prev: `上一张`, next: `下一张`,
     navPeaks: `山峰`, navCost: `费用`, navSupporters: `支持者`, navDonate: `捐款`, language: `语言`,
     headline: `我想登顶全部 14 座 8000 米以上的高峰。`,
     intro: `我是{name}。我的梦想是环游世界，站上每一座海拔超过 8000 米的山峰之巅。这条路漫长又昂贵：登山许可、机票、装备、氧气，还有保障登山者安全的团队。如果你愿意成为这段旅程的一部分，任何金额都是帮助。如果不愿意，也谢谢你来看看。`,
@@ -401,6 +405,7 @@ window.I18N.zh = {
 /* ---------------- 日本語 (Japanese) ---------------- */
 window.I18N.ja = {
   ui: {
+    navPhotos: `写真`, galleryTitle: `山からの写真`, galleryIntro: `トレイル、トレーニング登山、遠征で撮った写真です。`, close: `閉じる`, prev: `前の写真`, next: `次の写真`,
     navPeaks: `山々`, navCost: `費用`, navSupporters: `支援者`, navDonate: `寄付する`, language: `言語`,
     headline: `8,000メートルを超える14座すべてに登りたい。`,
     intro: `{name}です。世界を旅して、標高8,000メートルを超えるすべての山の頂に立つのが私の夢です。登山許可、航空券、装備、酸素、そして登山者の安全を支えるチーム。その道のりは長く、費用もかかります。この旅の一員になっていただけるなら、どんな金額でも力になります。そうでなくても、訪れてくださってありがとうございます。`,
@@ -491,6 +496,7 @@ window.I18N.ja = {
 /* ---------------- 한국어 (Korean) ---------------- */
 window.I18N.ko = {
   ui: {
+    navPhotos: `사진`, galleryTitle: `산에서 찍은 사진`, galleryIntro: `트레킹, 훈련 등반, 원정에서 찍은 사진입니다.`, close: `닫기`, prev: `이전 사진`, next: `다음 사진`,
     navPeaks: `산`, navCost: `비용`, navSupporters: `후원자`, navDonate: `후원하기`, language: `언어`,
     headline: `8,000미터가 넘는 14개 산을 모두 오르고 싶습니다.`,
     intro: `저는 {name}입니다. 세계를 여행하며 해발 8,000미터가 넘는 모든 산의 정상에 서는 것이 제 꿈입니다. 등반 허가, 항공권, 장비, 산소, 그리고 등반가의 안전을 지키는 팀까지, 길고 비용이 많이 드는 여정입니다. 이 여정에 함께하고 싶으시다면 어떤 금액이든 큰 힘이 됩니다. 그렇지 않더라도 들러 주셔서 감사합니다.`,
@@ -581,6 +587,7 @@ window.I18N.ko = {
 /* ---------------- Español (Spanish) ---------------- */
 window.I18N.es = {
   ui: {
+    navPhotos: `Fotos`, galleryTitle: `Desde la montaña`, galleryIntro: `Fotos del camino, de ascensiones de entrenamiento y de expediciones.`, close: `Cerrar`, prev: `Foto anterior`, next: `Foto siguiente`,
     navPeaks: `Las cumbres`, navCost: `Costes`, navSupporters: `Donantes`, navDonate: `Donar`, language: `Idioma`,
     headline: `Quiero escalar las 14 montañas de más de 8.000 metros.`,
     intro: `Soy {name}. Mi sueño es recorrer el mundo y llegar a la cumbre de todas las montañas de más de 8.000 metros. Es un camino largo y caro: permisos, vuelos, material, oxígeno y los equipos que mantienen a salvo a quienes escalan. Si quieres formar parte del viaje, cualquier cantidad ayuda. Si no, gracias por pasarte.`,
@@ -671,6 +678,7 @@ window.I18N.es = {
 /* ---------------- Français (French) ---------------- */
 window.I18N.fr = {
   ui: {
+    navPhotos: `Photos`, galleryTitle: `Depuis la montagne`, galleryIntro: `Des photos du sentier, des ascensions d'entraînement et des expéditions.`, close: `Fermer`, prev: `Photo précédente`, next: `Photo suivante`,
     navPeaks: `Les sommets`, navCost: `Coûts`, navSupporters: `Donateurs`, navDonate: `Faire un don`, language: `Langue`,
     headline: `Je veux gravir les 14 montagnes de plus de 8 000 mètres.`,
     intro: `Je m'appelle {name}. Mon rêve est de parcourir le monde et de me tenir au sommet de chaque montagne de plus de 8 000 mètres. La route est longue et coûteuse : permis, vols, matériel, oxygène, et les équipes qui assurent la sécurité des alpinistes. Si vous souhaitez faire partie de l'aventure, chaque montant compte. Sinon, merci de votre visite.`,
@@ -761,6 +769,7 @@ window.I18N.fr = {
 /* ---------------- Deutsch (German) ---------------- */
 window.I18N.de = {
   ui: {
+    navPhotos: `Fotos`, galleryTitle: `Aus den Bergen`, galleryIntro: `Fotos vom Weg, von Trainingstouren und Expeditionen.`, close: `Schließen`, prev: `Vorheriges Foto`, next: `Nächstes Foto`,
     navPeaks: `Die Gipfel`, navCost: `Kosten`, navSupporters: `Unterstützer`, navDonate: `Spenden`, language: `Sprache`,
     headline: `Ich will alle 14 Berge über 8.000 Meter besteigen.`,
     intro: `Ich bin {name}. Mein Traum ist es, die Welt zu bereisen und auf dem Gipfel jedes Berges über 8.000 Meter zu stehen. Der Weg ist lang und teuer: Genehmigungen, Flüge, Ausrüstung, Sauerstoff und die Teams, die Bergsteiger sicher halten. Wenn du Teil dieser Reise sein möchtest, hilft jeder Betrag. Wenn nicht, danke fürs Vorbeischauen.`,
@@ -851,6 +860,7 @@ window.I18N.de = {
 /* ---------------- Italiano (Italian) ---------------- */
 window.I18N.it = {
   ui: {
+    navPhotos: `Foto`, galleryTitle: `Dalle montagne`, galleryIntro: `Foto dal sentiero, dalle salite di allenamento e dalle spedizioni.`, close: `Chiudi`, prev: `Foto precedente`, next: `Foto successiva`,
     navPeaks: `Le vette`, navCost: `Costi`, navSupporters: `Sostenitori`, navDonate: `Dona`, language: `Lingua`,
     headline: `Voglio scalare tutte le 14 montagne sopra gli 8.000 metri.`,
     intro: `Sono {name}. Il mio sogno è viaggiare per il mondo e arrivare in cima a ogni montagna più alta di 8.000 metri. È una strada lunga e costosa: permessi, voli, attrezzatura, ossigeno e le squadre che tengono al sicuro chi scala. Se vuoi far parte del viaggio, qualsiasi cifra aiuta. Se no, grazie per la visita.`,
