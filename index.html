@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support the climb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --snow: #F2F5F7;
+    --slate: #1C2A35;
+    --rock: #56636E;
+    --ice: #D3DDE4;
+    --summit: #E8561C;
+    --summit-dark: #BF3F0B;
+    --white: #FFFFFF;
+    --esewa: #2B7F1C;
+    --khalti: #5C2D91;
+    --error: #A3261B;
+    --font: "Archivo", "Noto Sans Devanagari", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--snow); color: var(--slate); font-family: var(--font); font-size: 1.0625rem; line-height: 1.6; }
+  :focus-visible { outline: 3px solid var(--summit); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 1rem; top: 1rem; z-index: 10; background: var(--slate); color: var(--white); padding: .5rem 1rem; border-radius: 8px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  h1, h2, h3 { font-stretch: 72%; font-weight: 800; letter-spacing: -0.005em; }
+
+  /* Header */
+  .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
+  .brand { font-weight: 700; font-stretch: 85%; font-size: 1.125rem; }
+  .header-right { display: flex; align-items: center; gap: 1.5rem; }
+  .header-nav { display: flex; gap: 1.25rem; }
+  .header-nav a { color: var(--slate); font-weight: 600; text-underline-offset: 4px; white-space: nowrap; }
+  .lang-select {
+    font: inherit; font-size: .9375rem; font-weight: 600; color: var(--slate); background: var(--white);
+    border: 1.5px solid var(--ice); border-radius: 999px; padding: .375rem 2rem .375rem .875rem; cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C2A35' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right .75rem center;
+  }
+
+  /* Hero */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+    gap: clamp(2rem, 6vw, 5rem); align-items: start;
+    padding-top: clamp(1.5rem, 5vw, 4rem); padding-bottom: clamp(3rem, 7vw, 5rem);
+  }
+  h1 { font-size: clamp(2.75rem, 7.5vw, 5.75rem); line-height: .98; margin: 0 0 1.75rem; max-width: 13ch; }
+  .intro { font-size: 1.25rem; line-height: 1.6; max-width: 34rem; margin: 0; }
+  .progress-line { margin: 2rem 0 0; font-weight: 600; color: var(--rock); }
+
+  /* Panel */
+  .panel { background: var(--white); border: 1px solid var(--ice); border-radius: 20px; padding: clamp(1.25rem, 3vw, 2rem); position: sticky; top: 1.5rem; box-shadow: 0 30px 60px -40px rgba(28, 42, 53, .5); }
+  .panel-title { font-size: 1.875rem; line-height: 1.15; margin: 0 0 1.25rem; }
+  .panel-title:focus { outline: none; }
+  .notice { background: #FFF4E5; border-radius: 12px; padding: .875rem 1rem; font-size: .9375rem; margin: 0 0 1.25rem; }
+  .field { margin-bottom: 1.125rem; }
+  .field-label { display: block; font-weight: 700; margin-bottom: .375rem; }
+  .hint { display: block; font-weight: 400; font-size: .875rem; color: var(--rock); }
+  .input { width: 100%; font: inherit; color: inherit; background: var(--white); padding: .75rem .875rem; border: 1.5px solid var(--ice); border-radius: 12px; }
+  .input:focus, .amount-box:focus-within { border-color: var(--slate); outline: 3px solid var(--summit); outline-offset: 2px; }
+  .check { display: flex; gap: .625rem; align-items: center; margin-top: .625rem; font-weight: 600; font-size: .9375rem; cursor: pointer; }
+  .check input { width: 1.125rem; height: 1.125rem; accent-color: var(--slate); margin: 0; flex: none; }
+  .amount-box { display: flex; align-items: center; border: 1.5px solid var(--ice); border-radius: 12px; padding-left: .875rem; }
+  .amount-box span { color: var(--rock); font-weight: 700; }
+  .amount-box input { border: 0; outline: 0; flex: 1; min-width: 0; font: inherit; font-size: 1.25rem; font-weight: 700; padding: .625rem .5rem; background: transparent; color: inherit; }
+  .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: .375rem; margin-top: .5rem; }
+  .chip { font: inherit; font-size: .875rem; font-weight: 600; color: var(--slate); background: var(--snow); border: 1.5px solid transparent; border-radius: 999px; padding: .375rem .25rem; cursor: pointer; }
+  .chip:hover { border-color: var(--ice); }
+  .chip[aria-pressed="true"] { background: var(--slate); color: var(--white); }
+
+  .wallet-options { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .wallet-option { position: relative; display: block; cursor: pointer; }
+  .wallet-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .wallet-card { display: block; height: 100%; padding: .75rem .875rem; border: 1.5px solid var(--ice); border-radius: 14px; transition: border-color .15s, background-color .15s; }
+  .wallet-name { display: flex; align-items: center; gap: .5rem; font-weight: 700; font-size: 1.0625rem; }
+  .wallet-name::before { content: ""; width: .7rem; height: .7rem; border-radius: 50%; background: var(--brand); flex: none; }
+  .wallet-status { display: block; font-size: .8125rem; color: var(--rock); line-height: 1.35; margin-top: .125rem; }
+  .wallet-option:hover .wallet-card { border-color: var(--brand); }
+  .wallet-option input:checked + .wallet-card { border-color: var(--brand); background: var(--tint); box-shadow: inset 0 0 0 1px var(--brand); }
+  .wallet-option input:focus-visible + .wallet-card { outline: 3px solid var(--summit); outline-offset: 2px; }
+  .wallet-option input:disabled + .wallet-card { opacity: .55; cursor: not-allowed; border-color: var(--ice); background: var(--snow); box-shadow: none; }
+  .wallet-esewa { --brand: var(--esewa); --tint: #EEF7EC; }
+  .wallet-khalti { --brand: var(--khalti); --tint: #F3EEF9; }
+
+  .error { color: var(--error); font-weight: 600; font-size: .9375rem; margin: 0 0 .75rem; }
+  .error:empty { display: none; }
+  .btn-primary { display: block; width: 100%; text-align: center; text-decoration: none; font: inherit; font-weight: 700; color: var(--white); background: var(--summit-dark); border: 0; border-radius: 999px; padding: 1rem; cursor: pointer; }
+  .btn-primary:hover { background: #A33508; }
+  .btn-primary:disabled { opacity: .6; cursor: progress; }
+  .btn-secondary { display: block; width: fit-content; margin: 0 auto 1.25rem; text-decoration: none; font: inherit; font-size: .9375rem; font-weight: 700; color: var(--slate); background: var(--snow); border-radius: 999px; padding: .5rem 1.125rem; }
+  .btn-secondary:hover { background: var(--ice); }
+  .btn-link { background: none; border: 0; padding: 0; font: inherit; color: var(--slate); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .back { font-size: .9375rem; color: var(--rock); margin-bottom: 1rem; }
+
+  .qr { display: block; width: min(100%, 260px); aspect-ratio: 1; object-fit: contain; margin: 0 auto .875rem; border: 1px solid var(--ice); border-radius: 14px; background: var(--white); }
+  .details { margin: 0 0 1.25rem; border: 1.5px solid var(--ice); border-radius: 14px; }
+  .detail-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .625rem 1rem; }
+  .detail-row + .detail-row { border-top: 1px solid var(--ice); }
+  .detail-row dt { font-size: .8125rem; color: var(--rock); }
+  .detail-row dd { margin: 0; font-weight: 700; word-break: break-word; }
+  .detail-row.is-ref dd { font-size: 1.25rem; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+  .copy { flex: none; font: inherit; font-size: .8125rem; font-weight: 700; color: var(--slate); background: var(--snow); border: 0; border-radius: 999px; padding: .3rem .75rem; cursor: pointer; }
+  .pay-steps { margin: 0 0 1.25rem; padding-left: 1.25rem; font-size: .9375rem; }
+  .pay-steps li + li { margin-top: .375rem; }
+
+  .thanks { text-align: center; padding: .5rem 0; }
+  .thanks .flag { display: block; margin: 0 auto 1rem; }
+  .thanks p { color: var(--rock); max-width: 22rem; margin: 0 auto 1.25rem; }
+
+  .view.is-entering { animation: enter .25s ease-out; }
+  @keyframes enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* Sections */
+  .section { padding: clamp(3rem, 7vw, 5rem) 0; border-top: 1px solid var(--ice); }
+  .section.on-white { background: var(--white); }
+  .section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .75rem 3rem; margin-bottom: 1.75rem; }
+  .section-head h2 { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.05; margin: 0; }
+  .section-head p { margin: 0; color: var(--rock); max-width: 34rem; }
+
+  .skyline { display: block; width: 100%; height: auto; }
+  .skyline text { font-family: var(--font); }
+  .skyline-caption { font-size: .875rem; color: var(--rock); margin: .75rem 0 2.5rem; }
+
+  .peak-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+  .peak-list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; gap: .125rem 1rem; align-items: baseline; padding: 1.125rem 0; border-bottom: 1px solid var(--ice); }
+  .peak-rank { color: var(--rock); font-variant-numeric: tabular-nums; }
+  .peak-name { font-weight: 700; font-size: 1.125rem; }
+  .peak-meta { display: block; font-size: .875rem; font-weight: 400; color: var(--rock); }
+  .peak-height { font-stretch: 72%; font-weight: 800; font-size: 1.5rem; font-variant-numeric: tabular-nums; text-align: right; line-height: 1.2; white-space: nowrap; }
+  .peak-status { display: block; font-stretch: 100%; font-size: .8125rem; font-weight: 600; color: var(--rock); }
+  .peak-status.is-climbed { color: var(--summit-dark); }
+  .peak-text { grid-column: 2 / -1; margin: .375rem 0 0; font-size: .9375rem; color: var(--slate); max-width: 38rem; }
+
+  .cost-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 3rem; }
+  .cost-grid li { border-top: 3px solid var(--slate); padding-top: 1rem; }
+  .cost-grid h3 { font-size: 1.5rem; line-height: 1.15; margin: 0 0 .5rem; }
+  .cost-grid p { margin: 0; color: var(--rock); font-size: .9375rem; }
+  .cost-total { margin: 3rem 0 0; font-size: clamp(1.25rem, 2.2vw, 1.625rem); font-weight: 600; line-height: 1.4; max-width: 44rem; }
+  .cost-note { margin: .75rem 0 0; font-size: .875rem; color: var(--rock); }
+
+  .supporter-list { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+  .supporter-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto 8rem; gap: 1.5rem; padding: .875rem 0; border-bottom: 1px solid var(--ice); align-items: baseline; }
+  .s-name { font-weight: 600; overflow-wrap: anywhere; }
+  .s-name.is-anon { color: var(--rock); font-style: italic; }
+  .s-amount { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .s-date { color: var(--rock); font-size: .9375rem; text-align: right; }
+
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(2rem, 6vw, 5rem); }
+  .faq-grid h2 { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.05; margin: 0; }
+  details { border-bottom: 1px solid var(--ice); padding: 1.125rem 0; }
+  details:first-child { padding-top: 0; }
+  summary { cursor: pointer; font-weight: 700; font-size: 1.125rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 1.5rem; line-height: 1; font-weight: 400; }
+  details[open] summary::after { content: "\2212"; }
+  details p { margin: .75rem 0 0; color: var(--rock); max-width: 38rem; }
+
+  footer { border-top: 1px solid var(--ice); }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-top: 2rem; padding-bottom: 3rem; color: var(--rock); font-size: .9375rem; }
+  .footer-inner a { color: var(--slate); }
+
+  /* Scripts that need different line lengths or line breaking */
+  :lang(zh) h1, :lang(ja) h1, :lang(ko) h1 { max-width: 20em; font-size: clamp(2.25rem, 5.5vw, 4.25rem); line-height: 1.15; }
+  :lang(ne) h1, :lang(hi) h1 { line-height: 1.25; font-size: clamp(2.5rem, 6.5vw, 4.75rem); max-width: 16ch; }
+  :lang(ko) body, :lang(ko) h1, :lang(ko) h2 { word-break: keep-all; }
+  :lang(de) h1, :lang(de) h2, :lang(de) h3 { hyphens: auto; }
+
+  @media (max-width: 960px) {
+    .header-nav { display: none; }
+    .cost-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 880px) {
+    .hero, .faq-grid { grid-template-columns: minmax(0, 1fr); }
+    .panel { position: static; }
+    .peak-list { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .cost-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .chips { grid-template-columns: repeat(2, 1fr); }
+    .supporter-list li { grid-template-columns: minmax(0, 1fr) auto; gap: .125rem 1rem; }
+    .s-date { grid-column: 1 / -1; text-align: left; font-size: .875rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#donate">Skip to donation form</a>
+
+<header>
+  <div class="wrap header-inner">
+    <span class="brand" data-name></span>
+    <div class="header-right">
+      <nav class="header-nav" aria-label="Page sections">
+        <a href="#peaks" data-i18n="navPeaks"></a>
+        <a href="#cost" data-i18n="navCost"></a>
+        <a href="#supporters" data-i18n="navSupporters"></a>
+        <a href="#donate" data-i18n="navDonate"></a>
+      </nav>
+      <label>
+        <span class="sr-only" data-i18n="language"></span>
+        <select class="lang-select" id="lang-select"></select>
+      </label>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <h1 id="headline"></h1>
+      <p class="intro" id="intro"></p>
+      <p class="progress-line" id="progress-line"></p>
+    </div>
+
+    <aside id="donate" class="panel">
+      <div id="view-form" class="view">
+        <h2 class="panel-title" tabindex="-1" data-i18n="donateTitle"></h2>
+        <p class="notice" id="setup-notice" data-i18n="setupNotice" hidden></p>
+
+        <div class="field">
+          <label class="field-label" for="donor-name"><span data-i18n="nameLabel"></span>
+            <span class="hint" id="name-hint"></span>
+          </label>
+          <input class="input" id="donor-name" type="text" maxlength="60" autocomplete="name">
+          <label class="check"><input type="checkbox" id="anon"> <span data-i18n="anonLabel"></span></label>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="amount" data-i18n="amountLabel"></label>
+          <div class="amount-box">
+            <span data-currency></span>
+            <input id="amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0">
+          </div>
+          <div class="chips" id="chips"></div>
+        </div>
+
+        <fieldset class="field" style="border:0;padding:0;margin-inline:0;min-width:0">
+          <legend class="field-label" style="padding:0" data-i18n="walletLabel"></legend>
+          <div class="wallet-options" id="wallet-options"></div>
+        </fieldset>
+
+        <p class="error" id="form-error" role="alert"></p>
+        <button type="button" class="btn-primary" id="show-qr" data-i18n="showQr"></button>
+      </div>
+
+      <div id="view-qr" class="view" hidden></div>
+      <div id="view-thanks" class="view thanks" hidden></div>
+    </aside>
+  </section>
+
+  <section class="section on-white" id="peaks" aria-labelledby="peaks-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="peaks-title" data-i18n="peaksTitle"></h2>
+        <p data-i18n="peaksIntro"></p>
+      </div>
+      <svg class="skyline" id="skyline" viewBox="0 0 1000 340" role="img" aria-labelledby="skyline-title"></svg>
+      <p class="skyline-caption" data-i18n="skylineCaption"></p>
+      <ol class="peak-list" id="peak-list"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="cost" aria-labelledby="cost-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="cost-title" data-i18n="costTitle"></h2>
+        <p data-i18n="costIntro"></p>
+      </div>
+      <ul class="cost-grid" id="cost-grid"></ul>
+      <p class="cost-total" data-i18n="costTotal"></p>
+      <p class="cost-note" data-i18n="costNote"></p>
+    </div>
+  </section>
+
+  <section class="section on-white" id="supporters" aria-labelledby="supporters-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="supporters-title" data-i18n="supportersTitle"></h2>
+        <p id="supporters-summary"></p>
+      </div>
+      <ul class="supporter-list" id="supporter-list"></ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <h2 id="faq-title" data-i18n="faqTitle"></h2>
+      <div id="faq-list"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span data-name></span>
+    <span><span data-i18n="footerQuestions"></span> <a data-email></a></span>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="translations.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getFirestore, doc, collection, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+const S = window.SITE;
+const PEAKS = window.PEAKS;
+const LANGS = window.LANGUAGES;
+const WALLETS = { esewa: "eSewa", khalti: "Khalti" };
+
+const $ = (sel) => document.querySelector(sel);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n) => `${S.currency} ${Number(n || 0).toLocaleString(S.locale)}`;
+
+const state = {
+  lang: "en", view: "form",
+  name: "", anonymous: false, amount: 0, wallet: null, ref: "",
+  settings: { esewa: null, khalti: null }, climbed: [], donations: [], loaded: false
+};
+const configured = !!(S.firebase?.apiKey && !S.firebase.apiKey.startsWith("PASTE"));
+let db = null;
+
+/* ---------- Language ---------- */
+const langInfo = () => LANGS.find((l) => l.code === state.lang) || LANGS[0];
+const T = () => window.I18N[state.lang] || window.I18N.en;
+function tr(key, vars = {}) {
+  const text = T().ui[key] ?? window.I18N.en.ui[key] ?? key;
+  return text.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+}
+const height = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, langInfo().thousands) + " m";
+const niceDate = (iso) => {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  try { return new Date(y, m - 1, d).toLocaleDateString(langInfo().dateLocale, { day: "numeric", month: "short", year: "numeric", numberingSystem: "latn" }); }
+  catch { return iso; }
+};
+
+function pickLanguage() {
+  const supported = LANGS.map((l) => l.code);
+  const fromUrl = new URLSearchParams(location.search).get("lang");
+  if (supported.includes(fromUrl)) return fromUrl;
+  try { const saved = localStorage.getItem("climb-lang"); if (supported.includes(saved)) return saved; } catch {}
+  const browser = (navigator.languages || [navigator.language]).map((l) => (l || "").slice(0, 2).toLowerCase()).find((c) => supported.includes(c));
+  if (browser && browser !== "en") return browser;
+  return supported.includes(S.defaultLanguage) ? S.defaultLanguage : "en";
+}
+
+function setLanguage(code) {
+  state.lang = code;
+  document.documentElement.lang = code;
+  try { localStorage.setItem("climb-lang", code); } catch {}
+  try { const url = new URL(location.href); url.searchParams.set("lang", code); history.replaceState(null, "", url); } catch {}
+  $("#lang-select").value = code;
+  renderAll();
+}
+
+$("#lang-select").innerHTML = LANGS.map((l) => `<option value="${l.code}" lang="${l.code}">${esc(l.label)}</option>`).join("");
+$("#lang-select").addEventListener("change", (e) => setLanguage(e.target.value));
+
+/* ---------- Static text ---------- */
+document.querySelectorAll("[data-name]").forEach((el) => (el.textContent = S.yourName));
+document.querySelectorAll("[data-currency]").forEach((el) => (el.textContent = S.currency));
+document.querySelectorAll("[data-email]").forEach((el) => { el.textContent = S.contactEmail; el.href = `mailto:${S.contactEmail}`; });
+
+function renderStatic() {
+  document.querySelectorAll("[data-i18n]").forEach((el) => (el.textContent = tr(el.dataset.i18n)));
+  $("#headline").textContent = tr("headline", { name: S.yourName });
+  $("#intro").textContent = tr("intro", { name: S.yourName });
+  document.title = `${S.yourName} · ${tr("donateTitle")}`;
+  updateNameHint();
+}
+
+function renderAll() {
+  renderStatic();
+  renderSkyline();
+  renderPeakList();
+  renderCost();
+  renderFaq();
+  renderWallets();
+  renderSupporters();
+  $("#form-error").textContent = "";
+  if (state.view === "qr") renderQr();
+  if (state.view === "thanks") renderThanks();
+}
+
+/* ---------- Skyline ---------- */
+function renderSkyline() {
+  const baseY = 300;
+  const yFor = (m) => baseY - (m - 7600) * 0.2;
+  const t = T();
+  const positioned = PEAKS.map((p, i) => ({ ...p, x: p.west ? 70 + i * 62 : 420 + (i - 5) * 66, tipY: yFor(p.height), lean: i % 2 ? 1.12 : 0.9 }));
+  const drawOrder = [...positioned].sort((a, b) => b.height - a.height);
+  let out = `<title id="skyline-title">${esc(tr("skylineTitle"))}</title>`;
+  drawOrder.forEach((p) => {
+    const rise = baseY - p.tipY, half = 40 + rise * 0.35;
+    const A = [p.x - half * p.lean, baseY], T0 = [p.x, p.tipY], B = [p.x + half * (2 - p.lean), baseY];
+    const f = 0.2;
+    const L = [T0[0] + (A[0] - T0[0]) * f, T0[1] + (A[1] - T0[1]) * f];
+    const R = [T0[0] + (B[0] - T0[0]) * f, T0[1] + (B[1] - T0[1]) * f];
+    const lerp = (k, dy) => `${L[0] + (R[0] - L[0]) * k},${L[1] + dy}`;
+    const climbed = state.climbed.includes(p.id);
+    const label = `${t.peaks[p.id].name}, ${height(p.height)}${climbed ? `, ${tr("climbed")}` : ""}`;
+    out += `<g><title>${esc(label)}</title>
+      <polygon points="${A} ${T0} ${[T0[0] + 6, baseY]}" fill="#3B4C59"/>
+      <polygon points="${T0} ${B} ${[T0[0] + 6, baseY]}" fill="#1C2A35"/>
+      <polygon points="${T0} ${L} ${lerp(0.3, 6)} ${lerp(0.5, -1)} ${lerp(0.72, 7)} ${R}" fill="#E3EBF0"/>
+      <polyline points="${A} ${T0} ${B}" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+      ${climbed ? `<line x1="${T0[0]}" y1="${T0[1]}" x2="${T0[0]}" y2="${T0[1] - 26}" stroke="#1C2A35" stroke-width="2"/><polygon points="${T0[0]},${T0[1] - 26} ${T0[0] + 18},${T0[1] - 20} ${T0[0]},${T0[1] - 14}" fill="#E8561C"/>` : ""}
+    </g>`;
+  });
+  const y8000 = yFor(8000);
+  out += `<line x1="0" y1="${y8000}" x2="1000" y2="${y8000}" stroke="#E8561C" stroke-width="1.5" stroke-dasharray="6 6" opacity=".85"/>
+    <line x1="0" y1="${baseY}" x2="1000" y2="${baseY}" stroke="#D3DDE4"/>
+    <text x="194" y="328" text-anchor="middle" font-size="15" fill="#56636E">${esc(tr("rangeWest"))}</text>
+    <text x="684" y="328" text-anchor="middle" font-size="15" fill="#56636E">${esc(tr("rangeEast"))}</text>`;
+  $("#skyline").innerHTML = out;
+}
+
+function renderPeakList() {
+  const t = T();
+  const byHeight = [...PEAKS].sort((a, b) => b.height - a.height);
+  $("#peak-list").innerHTML = byHeight.map((p, i) => {
+    const climbed = state.climbed.includes(p.id);
+    const countries = p.countries.map((c) => t.countries[c]).join(", ");
+    return `<li>
+      <span class="peak-rank">${i + 1}</span>
+      <span class="peak-name">${esc(t.peaks[p.id].name)}<span class="peak-meta">${esc(countries)} · ${esc(tr("firstAscent", { year: p.year }))}</span></span>
+      <span class="peak-height">${height(p.height)}<span class="peak-status ${climbed ? "is-climbed" : ""}">${esc(climbed ? tr("climbed") : tr("notYet"))}</span></span>
+      <p class="peak-text">${esc(t.peaks[p.id].text)}</p>
+    </li>`;
+  }).join("");
+  const count = PEAKS.filter((p) => state.climbed.includes(p.id)).length;
+  $("#progress-line").textContent = tr("progress", { count });
+}
+
+function renderCost() {
+  $("#cost-grid").innerHTML = T().cost.map((c) => `<li><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></li>`).join("");
+}
+
+function renderFaq() {
+  const open = [...document.querySelectorAll("#faq-list details")].map((d) => d.open);
+  $("#faq-list").innerHTML = T().faq.map((f, i) => `<details ${open[i] ? "open" : ""}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
+}
+
+/* ---------- Supporters ---------- */
+function renderSupporters() {
+  const list = [...state.donations].sort((a, b) => (b.date || "").localeCompare(a.date || "") || ((b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)));
+  const total = list.reduce((sum, d) => sum + (Number(d.amount) || 0), 0);
+  const summary = $("#supporters-summary");
+  if (configured && !state.loaded) summary.textContent = tr("supportersLoading");
+  else if (!list.length) summary.textContent = tr("supportersEmpty");
+  else if (list.length === 1) summary.textContent = tr("summaryOne", { total: money(total) });
+  else summary.textContent = tr("summaryMany", { total: money(total), count: list.length });
+  $("#supporter-list").innerHTML = list.map((d) => `<li>
+      <span class="s-name ${d.anonymous ? "is-anon" : ""}">${esc(d.anonymous ? tr("anonymous") : d.name)}</span>
+      <span class="s-amount">${esc(money(d.amount))}</span>
+      <span class="s-date">${esc(niceDate(d.date))}</span>
+    </li>`).join("");
+}
+
+/* ---------- Donation form ---------- */
+const nameInput = $("#donor-name");
+const anonInput = $("#anon");
+const amountInput = $("#amount");
+const walletAvailable = (w) => { const s = state.settings[w]; return !!(configured && s && s.qr && s.enabled !== false); };
+
+function updateNameHint() { $("#name-hint").textContent = anonInput.checked ? tr("nameHintAnon") : tr("nameHint"); }
+anonInput.addEventListener("change", () => { updateNameHint(); $("#form-error").textContent = ""; });
+nameInput.addEventListener("input", () => ($("#form-error").textContent = ""));
+
+S.quickAmounts.forEach((a) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.dataset.amount = a; b.setAttribute("aria-pressed", "false");
+  b.textContent = money(a);
+  $("#chips").appendChild(b);
+});
+const syncChips = () => document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.amount === amountInput.value)));
+$("#chips").addEventListener("click", (e) => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  amountInput.value = chip.dataset.amount;
+  syncChips();
+  $("#form-error").textContent = "";
+});
+amountInput.addEventListener("input", () => { amountInput.value = amountInput.value.replace(/\D/g, ""); syncChips(); $("#form-error").textContent = ""; });
+
+function renderWallets() {
+  $("#wallet-options").innerHTML = Object.entries(WALLETS).map(([key, label]) => {
+    const ok = walletAvailable(key);
+    if (!ok && state.wallet === key && state.view === "form") state.wallet = null;
+    const status = !configured ? tr("walletNotSetUp") : ok ? tr("walletReady") : tr("walletUnavailable");
+    return `<label class="wallet-option wallet-${key}">
+      <input type="radio" name="wallet" value="${key}" ${ok ? "" : "disabled"} ${state.wallet === key ? "checked" : ""}>
+      <span class="wallet-card"><span class="wallet-name">${label}</span><span class="wallet-status">${esc(status)}</span></span>
+    </label>`;
+  }).join("");
+}
+$("#wallet-options").addEventListener("change", (e) => { if (e.target.name === "wallet") { state.wallet = e.target.value; $("#form-error").textContent = ""; } });
+
+$("#show-qr").addEventListener("click", () => {
+  const error = $("#form-error");
+  const anonymous = anonInput.checked;
+  const name = nameInput.value.trim();
+  const amount = parseInt(amountInput.value, 10) || 0;
+  if (!name && !anonymous) { error.textContent = tr("errName"); nameInput.focus(); return; }
+  if (amount < S.minAmount) { error.textContent = tr("errAmount", { min: money(S.minAmount) }); amountInput.focus(); return; }
+  if (!state.wallet || !walletAvailable(state.wallet)) { error.textContent = tr("errWallet"); $("#wallet-options input:not(:disabled)")?.focus(); return; }
+  Object.assign(state, { name, anonymous, amount, ref: String(Math.floor(10000 + Math.random() * 90000)) });
+  showView("qr");
+});
+
+function showView(name) {
+  state.view = name;
+  if (name === "qr") renderQr();
+  if (name === "thanks") renderThanks();
+  document.querySelectorAll(".view").forEach((v) => { v.hidden = true; v.classList.remove("is-entering"); });
+  const view = $(`#view-${name}`);
+  view.hidden = false;
+  void view.offsetWidth;
+  view.classList.add("is-entering");
+  view.querySelector(".panel-title")?.focus({ preventScroll: true });
+  const panel = $("#donate");
+  if (panel.getBoundingClientRect().top < 0) panel.scrollIntoView({ block: "start" });
+}
+
+/* ---------- QR step ---------- */
+function renderQr() {
+  const key = state.wallet, wallet = WALLETS[key], s = state.settings[key];
+  const back = `<button type="button" class="btn-link back" data-action="back">${esc(tr("back"))}</button>`;
+  if (!walletAvailable(key)) {
+    $("#view-qr").innerHTML = `${back}
+      <h2 class="panel-title" tabindex="-1">${esc(tr("unavailableTitle", { wallet }))}</h2>
+      <p>${esc(tr("unavailableBody"))}</p>`;
+    return;
+  }
+  const amountText = money(state.amount);
+  const ext = s.qr.startsWith("data:image/jpeg") ? "jpg" : "png";
+  const rows = [];
+  if (s.accountName) rows.push({ label: tr("rowAccount"), value: s.accountName });
+  if (s.walletId) rows.push({ label: tr("rowId", { wallet }), value: s.walletId, copy: s.walletId });
+  rows.push({ label: tr("rowAmount"), value: amountText, copy: String(state.amount) });
+  rows.push({ label: tr("rowRef"), value: state.ref, copy: state.ref, cls: "is-ref" });
+
+  $("#view-qr").innerHTML = `${back}
+    <h2 class="panel-title" tabindex="-1">${esc(tr("payTitle", { amount: amountText, wallet }))}</h2>
+    <img class="qr" src="${esc(s.qr)}" alt="${esc(tr("qrAlt", { wallet }))}">
+    <a class="btn-secondary" href="${esc(s.qr)}" download="${key}-qr.${ext}">${esc(tr("download"))}</a>
+    <dl class="details">${rows.map((r) => `
+      <div class="detail-row ${r.cls || ""}"><div><dt>${esc(r.label)}</dt><dd>${esc(r.value)}</dd></div>
+      ${r.copy ? `<button type="button" class="copy" data-copy="${esc(r.copy)}">${esc(tr("copy"))}</button>` : ""}</div>`).join("")}
+    </dl>
+    <ol class="pay-steps">
+      <li>${esc(tr("step1", { wallet }))}</li>
+      <li>${esc(tr("step2", { amount: amountText, ref: state.ref }))}</li>
+      <li>${esc(tr("step3"))}</li>
+    </ol>
+    <button type="button" class="btn-primary" data-action="paid">${esc(tr("paid"))}</button>
+    <p class="error" id="pay-error" role="alert" style="margin:.75rem 0 0"></p>`;
+}
+
+$("#view-qr").addEventListener("click", async (e) => {
+  const copyBtn = e.target.closest("[data-copy]");
+  if (copyBtn) {
+    try { await navigator.clipboard.writeText(copyBtn.dataset.copy); copyBtn.textContent = tr("copied"); }
+    catch { copyBtn.textContent = tr("copyFail"); }
+    setTimeout(() => (copyBtn.textContent = tr("copy")), 1600);
+    return;
+  }
+  const btn = e.target.closest("[data-action]");
+  if (!btn) return;
+  if (btn.dataset.action === "back") showView("form");
+  if (btn.dataset.action === "paid") {
+    btn.disabled = true; btn.textContent = tr("sending");
+    try {
+      await addDoc(collection(db, "pledges"), {
+        name: state.name, amount: state.amount, method: state.wallet,
+        anonymous: state.anonymous, ref: state.ref, createdAt: serverTimestamp()
+      });
+      showView("thanks");
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false; btn.textContent = tr("paid");
+      $("#pay-error").textContent = tr("payError");
+    }
+  }
+});
+
+function renderThanks() {
+  const title = state.name && !state.anonymous ? tr("thanksNamed", { name: state.name }) : tr("thanksAnon");
+  $("#view-thanks").innerHTML = `
+    <svg class="flag" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+      <polygon points="6,58 30,18 54,58" fill="#1C2A35"/><polygon points="30,18 24,28 30,26 36,29" fill="#fff"/>
+      <line x1="30" y1="18" x2="30" y2="2" stroke="#1C2A35" stroke-width="2.5"/><polygon points="30,2 48,7 30,12" fill="#E8561C"/>
+    </svg>
+    <h2 class="panel-title" tabindex="-1">${esc(title)}</h2>
+    <p>${esc(tr("thanksBody", { wallet: WALLETS[state.wallet] }))}</p>
+    <button type="button" class="btn-link" id="restart">${esc(tr("restart"))}</button>`;
+  $("#restart").addEventListener("click", () => { amountInput.value = ""; syncChips(); showView("form"); });
+}
+
+/* ---------- Start ---------- */
+state.lang = pickLanguage();
+document.documentElement.lang = state.lang;
+$("#lang-select").value = state.lang;
+renderAll();
+
+if (!configured) {
+  $("#setup-notice").hidden = false;
+} else {
+  db = getFirestore(initializeApp(S.firebase));
+  Object.keys(WALLETS).forEach((w) => {
+    onSnapshot(doc(db, "settings", w), (snap) => {
+      state.settings[w] = snap.exists() ? snap.data() : null;
+      renderWallets();
+      if (state.view === "qr" && state.wallet === w) renderQr();
+    }, (err) => console.error(err));
+  });
+  onSnapshot(doc(db, "settings", "peaks"), (snap) => {
+    state.climbed = snap.exists() ? (snap.data().climbed || []) : [];
+    renderSkyline(); renderPeakList();
+  }, (err) => console.error(err));
+  onSnapshot(collection(db, "donations"), (snap) => {
+    state.loaded = true;
+    state.donations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    renderSupporters();
+  }, (err) => {
+    console.error(err);
+    $("#supporters-summary").textContent = tr("supportersError");
+  });
+}
+</script>
+</body>
+</html>
